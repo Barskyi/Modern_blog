@@ -11,6 +11,7 @@ django = "^5.1.7"
 python-decouple = "^3.8"
 django-taggit = "^6.1.0"
 markdown = "^3.7"
+psycopg2-binary = "^2.9.10"
 
 
 [build-system]

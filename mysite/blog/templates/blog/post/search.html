@@ -1,0 +1,55 @@
+{% extends "blog/base.html" %}
+{% load blog_tags %}
+
+{% block title %}Пошук{% endblock %}
+
+{% block content %}
+    <div class="search-container">
+        {% if query %}
+            <h1>Публікації, що містять "{{ query }}"</h1>
+
+            <div class="search-results-info">
+                {% with results.count as total_results %}
+                    <h3>
+                        Знайдено {{ total_results }} результат{{ total_results|pluralize:"и,ів" }}
+                    </h3>
+                {% endwith %}
+            </div>
+
+            <div class="search-results">
+                {% for post in results %}
+                    <article class="post-item">
+                        <h2 class="post-title">
+                            <a href="{{ post.get_absolute_url }}">
+                                {{ post.title }}
+                            </a>
+                        </h2>
+                        <div class="post-excerpt">
+                            {{ post.body|markdown|truncatewords_html:12 }}
+                        </div>
+                    </article>
+                {% empty %}
+                    <div class="no-results">
+                        <p>За вашим запитом нічого не знайдено.</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="search-actions">
+                <a href="{% url 'blog:post_search' %}" class="btn-primary">
+                    <i class="fas fa-search"></i> Новий пошук
+                </a>
+            </div>
+        {% else %}
+            <h1>Пошук публікацій</h1>
+            <div class="form-container">
+                <form method="get" class="search-form">
+                    {{ form.as_p }}
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-search"></i> Шукати
+                    </button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

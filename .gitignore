@@ -1,2 +1,4 @@
 .venv
 .env
+mysite/blog/static_copy
+mysite/blog/template_copy

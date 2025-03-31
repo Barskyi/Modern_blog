@@ -1,7 +1,11 @@
-<ul>
+<ul class="post-list recent-posts">
     {% for post in latest_posts %}
-    <li>
-        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-    </li>
+        <li class="post-item">
+            <i class="fas fa-file-alt"></i>
+            <a href="{{ post.get_absolute_url }}" class="post-link">
+                {{ post.title }}
+            </a>
+            <span class="post-date">{{ post.publish|date:"d.m.Y" }}</span>
+        </li>
     {% endfor %}
 </ul>

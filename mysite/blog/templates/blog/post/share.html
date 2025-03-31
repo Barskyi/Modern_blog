@@ -1,17 +1,30 @@
 {% extends "blog/base.html" %}
-{% block title %}Share a post{% endblock %}
+
+{% block title %}Поділитися публікацією{% endblock %}
+
 {% block content %}
-{% if sent %}
-<h1>E-mail successfully sent</h1>
-<p>
-    "{{ post.title }}" was successfully sent to {{ form.cleaned_data.to }}.
-</p>
-{% else %}
-<h1>Share "{{ post.title }}" by e-mail</h1>
-<form method="post">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <input type="submit" value="Send e-mail">
-</form>
-{% endif %}
+    <div class="post-share">
+        {% if sent %}
+            <div class="message-success">
+                <h1>Електронний лист успішно надіслано</h1>
+                <p class="message-text">
+                    "{{ post.title }}" було успішно надіслано на адресу {{ form.cleaned_data.to }}.
+                </p>
+                <a href="{{ post.get_absolute_url }}" class="btn-primary">
+                    <i class="fas fa-arrow-left"></i> Повернутися до публікації
+                </a>
+            </div>
+        {% else %}
+            <h1>Поділитися "{{ post.title }}" електронною поштою</h1>
+            <div class="form-container">
+                <form method="post" class="share-form">
+                    {{ form.as_p }}
+                    {% csrf_token %}
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-paper-plane"></i> Надіслати листа
+                    </button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

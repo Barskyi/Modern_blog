@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6*g21odyhnw*2!w^f%r19zc-ggmtp6mn3h74@%2#4104teibi)'
+SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -35,7 +35,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'taggit',
     'blog.apps.BlogConfig',
 ]
@@ -75,8 +78,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('NAME_DB'),
+        'USER': config('USER_DB'),
+        'PASSWORD': config('PASSWORD_DB'),
+        'HOST': config('HOST_DB'),
+        'PORT': config('PORT_DB'),
     }
 }
 
@@ -125,3 +132,5 @@ EMAIL_HOST_PASSWORD = config('SECRET_EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = config('SECRET_DEFAULT_FROM_EMAIL')
+
+SITE_ID = 1
